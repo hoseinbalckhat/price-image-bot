@@ -21,10 +21,10 @@ const SECTIONS = [
     numRight: 375, arrowX: 465, maxW: 118, size: 27,
   },
   {
-    keys: ['XAUUSD', 'GOLD18GRAM', 'SILVER925', 'COINNEW', 'MELTEDGOLD', 'HALFCOIN', 'QUARTERCOIN'],
+    keys: ['XAUUSD', 'GOLD18GRAM', 'XAGGRAMUSD', 'COINNEW', 'MELTEDGOLD', 'HALFCOIN', 'QUARTERCOIN'],
     ys: [351, 400, 449, 499, 549, 600, 650],
     numRight: 903, arrowX: 972, maxW: 140, size: 27,
-    firstRight: 908, fifthMaxW: 130,
+    rightAt: { 0: 908, 2: 908 }, fifthMaxW: 130,
   },
   {
     keys: ['BRENTOIL', 'WTI', 'GAS'],
@@ -100,7 +100,7 @@ export function buildHtml(data) {
       const item = items[key];
       const has = item && typeof item.value === 'number' && !Number.isNaN(item.value);
       let right = sec.numRight;
-      if (sec.firstRight && i === 0) right = sec.firstRight;
+      if (sec.rightAt && sec.rightAt[i]) right = sec.rightAt[i];
       let maxW = sec.maxW;
       if (sec.fifthMaxW && i === 4) maxW = sec.fifthMaxW;
       parts.push(numberCell(right, y, has ? fmt(item.value) : '—', sec.size, maxW, has ? '' : 'dim'));
